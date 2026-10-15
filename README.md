@@ -17,7 +17,7 @@ Everything lives in `assets/`. Paths are case-sensitive on GitHub Pages.
 
 **SUMCO memo:** upload it as `assets/SUMCO_Memo.pdf`, then uncomment the button block marked in the SUMCO card in `index.html`.
 
-**Current research card:** commented out in `index.html`. Fill it in, uncomment it, and change `(01)` to `(02)` in the research header.
+**Current research card:** deliberately broad (the question only). Do not add method, data sources or results there until the paper is out.
 
 ## Still to fill in
 
