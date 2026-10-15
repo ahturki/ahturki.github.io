@@ -22,7 +22,7 @@ Everything lives in `assets/`. Paths are case-sensitive on GitHub Pages.
 ## Still to fill in
 
 ```
-grep -n '\[EMAIL\]\|\[LINKEDIN_URL\]' index.html
+grep -n '\[EMAIL\]' index.html
 ```
 
 ## Deploy
