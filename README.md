@@ -1,6 +1,6 @@
 # Ahmed Turki · Equity Research site
 
-One-page portfolio for the Citadel Associate Program application. Single `index.html`, inline CSS, no JS, no build step.
+One-page portfolio for the Citadel Associate Program application. Single `index.html` with inline CSS and a small vanilla JS block (hero text reveal, scroll reveals, custom cursor, live clock). No build step.
 
 ## Folder structure
 
@@ -31,10 +31,11 @@ grep -n 'class="ph"\|\[LINKEDIN_URL\]\|\[EMAIL\]' index.html
 
 Other edits:
 
-- **Direction pill**: change `<span class="pill">...</span>` to `<span class="pill long">LONG</span>` or `<span class="pill short">SHORT</span>`.
+- **Direction tag**: change `<span class="dir">...</span>` to `<span class="dir long">LONG</span>` or `<span class="dir short">SHORT</span>`.
 - **Implied return color**: add `class="pos"` or `class="neg"` to the Implied `<dd>`.
 - **FTAI short report row**: delete the `Short report` `<dt>`/`<dd>` pair if the pitch is SHORT.
-- **Card order**: cut and paste whole `<article>` blocks, and reorder the "Jump to" links to match.
+- **Pitch order**: cut and paste whole `<details class="row">` blocks and renumber the `01`, `02`, `03` labels.
+- **Linking straight to a pitch**: `https://ahturki.github.io/#cprt` (or `#sumco`, `#ftai`) scrolls to that pitch and opens it.
 
 ## Deploy to GitHub Pages
 
