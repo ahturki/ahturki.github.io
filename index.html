@@ -251,7 +251,12 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
 .cta:hover span { color: var(--accent); }
 .cta .arw { font-family: var(--sans); font-weight: 300; transform: rotate(-45deg); }
 .cta:hover .arw { transform: translate(.08em, -.08em) rotate(-45deg); }
-.f-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.f-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.mail { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 28px; font: 400 clamp(16px, 1.8vw, 20px)/1.3 var(--mono); }
+.mail a { color: var(--ink-2); border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color .3s, border-color .3s; }
+.mail a:hover { color: var(--accent); border-color: var(--accent); }
+.copy { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 7px 11px; cursor: pointer; transition: color .3s, border-color .3s; }
+.copy:hover, .copy.done { color: var(--accent); border-color: var(--accent); }
 footer .btn { background: transparent; border-color: var(--rule); }
 .legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; margin-top: 80px; padding-top: 18px; border-top: 1px solid var(--rule); font: 400 12px/1.5 var(--mono); color: var(--ink-3); }
 
@@ -285,7 +290,6 @@ footer .btn { background: transparent; border-color: var(--rule); }
   .card:has(.plate) .top { position: absolute; top: 18px; left: 18px; right: 18px; }
   .card:has(.plate) > div:last-child { padding-top: 220px; }
   .card .plate { height: 200px; }
-  .card .plate img[src*="copart"] { width: 78%; }
   .card .credit { top: 14px; bottom: auto; }
   .card .fig { left: 0; right: 0; width: 100%; max-width: none; height: 70vw; bottom: auto; }
   .card.wide:has(.orbits) { padding-top: 70vw; }
@@ -397,7 +401,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
     <div class="grid">
 
       <article class="card rv" style="--plate:#0D5DB8; --top:rgba(255,255,255,.85); --tagc:#0D5DB8">
-        <div class="plate" aria-hidden="true"><img src="assets/copart.png" alt="" width="600" height="600" style="--w:100%; max-height:none"></div>
+        <div class="plate" aria-hidden="true"><img src="assets/copart_logo.png" alt="" style="--w:84%"></div>
         <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
         <div>
           <p class="tk">NASDAQ: CPRT</p>
@@ -483,7 +487,11 @@ footer .btn { background: transparent; border-color: var(--rule); }
 </main>
 
 <footer id="contact">
-  <a class="cta rv" href="mailto:[EMAIL]"><span>Get in</span> <span>touch</span> <span class="arw" aria-hidden="true">→</span></a>
+  <a class="cta rv" href="mailto:ahturki@upenn.edu"><span>Get in</span> <span>touch</span> <span class="arw" aria-hidden="true">→</span></a>
+  <div class="mail rv">
+    <a href="mailto:ahturki@upenn.edu">ahturki@upenn.edu</a>
+    <button type="button" class="copy" data-copy="ahturki@upenn.edu">Copy</button>
+  </div>
   <div class="f-links rv">
     <a class="btn" href="https://www.linkedin.com/in/a-turki/" target="_blank" rel="noopener">LinkedIn <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
     <a class="btn" href="https://github.com/ahturki" target="_blank" rel="noopener">GitHub <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
@@ -519,6 +527,13 @@ footer .btn { background: transparent; border-color: var(--rule); }
   document.querySelectorAll('.rv').forEach((el, k) => { el.style.transitionDelay = (k % 3) * 90 + 'ms'; io.observe(el); });
 
   if (reduce) document.querySelectorAll('svg.orbits').forEach(o => o.pauseAnimations());
+
+  // Copy email
+  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent = 'Copied'; btn.classList.add('done'); }
+    catch { location.href = 'mailto:' + btn.dataset.copy; return; }
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
+  }));
 
   // Gentle scroll parallax on the hero
   if (!reduce) {

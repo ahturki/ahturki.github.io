@@ -9,7 +9,7 @@ Everything lives in `assets/`. Paths are case-sensitive on GitHub Pages.
 | File | Used for |
 |---|---|
 | `photo.jpg` | Portrait (cropped and compressed from `photo.png`, which the page does not load) |
-| `copart.png`, `FTAI.png`, `SUMCO.png` | Logos on the pitch cards |
+| `copart_logo.png` (cropped from `copart.png`), `FTAI.png`, `SUMCO.png` | Logos on the pitch cards |
 | `CPRT_Memo.pdf`, `FTAI_Memo.pdf` | "Memo" buttons |
 | `The_Cradles_of_Planets_Review_Paper.pdf` | "Paper" button |
 | `hltau.jpg` | Paper card image (Fig. 1 of the paper, ALMA (ESO/NAOJ/NRAO)) |
@@ -18,12 +18,6 @@ Everything lives in `assets/`. Paths are case-sensitive on GitHub Pages.
 **SUMCO memo:** upload it as `assets/SUMCO_Memo.pdf`, then uncomment the button block marked in the SUMCO card in `index.html`.
 
 **Current research card:** deliberately broad (the question only). Do not add method, data sources or results there until the paper is out.
-
-## Still to fill in
-
-```
-grep -n '\[EMAIL\]' index.html
-```
 
 ## Deploy
 
