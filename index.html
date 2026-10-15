@@ -142,7 +142,22 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
   display: flex; flex-direction: column; justify-content: space-between;
   padding: clamp(18px, 2vw, 26px);
 }
-.card.wide { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.card.wide { grid-column: 1 / -1; aspect-ratio: 2.4 / 1; }
+
+/* logo cards: brand-colored panel on top, solid dark panel for the text */
+.card:has(.plate) { background: #15171A; }
+.card:has(.plate)::before { display: none; }
+.card .plate { position: absolute; left: 0; right: 0; top: 0; height: 56%; z-index: -2; background: var(--plate); display: grid; place-items: center; overflow: hidden; }
+.card .plate img { width: var(--w, 60%); height: auto; transition: transform 1.2s var(--ease); }
+.card:has(.plate) .top { color: var(--top, rgba(12,13,15,.7)); }
+.card:has(.plate) .tag.long { color: var(--tagc, #0F7A45); background: rgba(255,255,255,.92); border-color: transparent; }
+@media (hover: hover) { .card:hover .plate img { transform: scale(1.07); } }
+.card .credit { position: absolute; right: clamp(18px, 2vw, 26px); bottom: 14px; margin: 0; font: 400 10px/1 var(--mono); color: rgba(236,234,228,.45); letter-spacing: .04em; }
+
+/* paper card: figure on the right, blended into black */
+.card .fig { position: absolute; top: 0; bottom: 0; right: 0; height: 100%; width: auto; max-width: 62%; object-fit: cover; z-index: -2; transition: transform 1.4s var(--ease); }
+.card:has(.fig)::before { background: linear-gradient(90deg, #000 38%, rgba(0,0,0,.6) 52%, rgba(0,0,0,0) 70%); }
+@media (hover: hover) { .card:hover .fig { transform: scale(1.05); } }
 
 /* background layers: image (if present) over a ticker watermark, with a gradient for legibility */
 .card .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transform: scale(1.02); transition: transform 1.4s var(--ease), filter .8s var(--ease); filter: saturate(.85) brightness(.85); }
@@ -173,7 +188,8 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
 .tag.wip { color: var(--ink-2); }
 .card .tk { margin: 0 0 6px; font: 400 12px/1.3 var(--mono); color: rgba(236,234,228,.75); letter-spacing: .04em; }
 .card h3 { margin: 0; font: 600 clamp(26px, 2.6vw, 38px)/1.05 var(--serif); letter-spacing: -0.02em; }
-.card.wide h3 { font-size: clamp(26px, 3.4vw, 48px); max-width: 22ch; }
+.card.wide h3 { font-size: clamp(24px, 3vw, 42px); max-width: 22ch; }
+.card.wide .sub { max-width: 46ch; }
 .card .sub { margin: 10px 0 0; font-size: 14px; color: rgba(236,234,228,.8); max-width: 60ch; }
 .card .sub.authors { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
 
@@ -232,6 +248,15 @@ footer .btn { background: transparent; border-color: var(--rule); }
   .scroll-cue { display: none; }
   .grid { grid-template-columns: 1fr; }
   .card, .card.wide { aspect-ratio: auto; min-height: 400px; }
+  .card.wide:has(.fig) { padding-top: 62vw; }
+  .card:has(.plate) { min-height: 0; padding-top: 0; }
+  .card:has(.plate) .top { position: absolute; top: 18px; left: 18px; right: 18px; }
+  .card:has(.plate) > div:last-child { padding-top: 220px; }
+  .card .plate { height: 200px; }
+  .card .plate img[src*="copart"] { width: 78%; }
+  .card .credit { top: 14px; bottom: auto; }
+  .card .fig { left: 0; right: 0; width: 100%; max-width: none; height: 70vw; bottom: auto; }
+  .card:has(.fig)::before { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, #000 70vw); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -282,10 +307,8 @@ footer .btn { background: transparent; border-color: var(--rule); }
       <span class="line" aria-hidden="true" data-split>Ahmed</span>
       <span class="line" aria-hidden="true" data-split>Turki</span>
     </h1>
-    <!-- Add your photo at assets/photo.jpg (portrait, about 800 x 1000 px). The dashed box disappears once it loads. -->
     <figure class="portrait">
-      <div class="empty">[ YOUR PHOTO ]<br>assets/photo.jpg</div>
-      <img src="assets/photo.jpg" alt="Ahmed Turki" width="800" height="1000" onerror="this.remove()">
+      <img src="assets/photo.jpg" alt="Ahmed Turki" width="800" height="1000">
     </figure>
     <div class="hero-foot">
       <p><span class="k">Education</span>University of Pennsylvania '29<br>Mathematical Economics and Physics</p>
@@ -315,50 +338,44 @@ footer .btn { background: transparent; border-color: var(--rule); }
       <span class="count">(03)</span>
     </div>
 
-    <!-- Card background: put an image at the src path (deck title slide or a company photo, about 1200 x 1500 px).
-         If the file is missing, the card falls back to the large ticker watermark. -->
     <div class="grid">
 
-      <article class="card rv" style="--tint:#1A1714">
-        <img class="bg" src="pitches/SUMCO_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
-        <span class="wm" aria-hidden="true">3436</span>
-        <div class="top"><span class="tag long">LONG</span><span>Apr 2026</span></div>
-        <div>
-          <p class="tk">TSE: 3436</p>
-          <h3>SUMCO Corporation</h3>
-          <ul class="links">
-            <li><a class="btn solid" href="pitches/SUMCO_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-            <li><a class="btn" href="pitches/SUMCO_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card rv" style="--tint:#141A17">
-        <img class="bg" src="pitches/CPRT_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
-        <span class="wm" aria-hidden="true">CPRT</span>
+      <article class="card rv" style="--plate:#0D5DB8; --top:rgba(255,255,255,.85); --tagc:#0D5DB8">
+        <div class="plate" aria-hidden="true"><img src="assets/copart.png" alt="" width="600" height="600" style="--w:100%; max-height:none"></div>
         <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
         <div>
           <p class="tk">NASDAQ: CPRT</p>
           <h3>Copart, Inc.</h3>
-          <p class="sub">Citadel stock pitch competition, team of <span class="ph">[N]</span>. I built the valuation model.</p>
+          <p class="sub">Team pitch, Citadel stock pitch competition. I built the valuation model.</p>
           <ul class="links">
-            <li><a class="btn solid" href="pitches/CPRT_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-            <li><a class="btn" href="pitches/CPRT_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
+            <li><a class="btn solid" href="assets/CPRT_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
         </div>
       </article>
 
-      <article class="card rv" style="--tint:#14171C">
-        <img class="bg" src="pitches/FTAI_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
-        <span class="wm" aria-hidden="true">FTAI</span>
+      <article class="card rv" style="--plate:#F3F2EE">
+        <div class="plate" aria-hidden="true"><img src="assets/FTAI.png" alt="" width="600" height="300" style="--w:72%"></div>
         <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
         <div>
           <p class="tk">NASDAQ: FTAI</p>
           <h3>FTAI Aviation Ltd.</h3>
           <ul class="links">
-            <li><a class="btn solid" href="pitches/FTAI_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-            <li><a class="btn" href="pitches/FTAI_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
+            <li><a class="btn solid" href="assets/FTAI_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
+        </div>
+      </article>
+
+      <article class="card rv" style="--plate:#F3F2EE">
+        <div class="plate" aria-hidden="true"><img src="assets/SUMCO.png" alt="" width="320" height="320" style="--w:62%"></div>
+        <div class="top"><span class="tag long">LONG</span><span>Apr 2026</span></div>
+        <div>
+          <p class="tk">TSE: 3436</p>
+          <h3>SUMCO Corporation</h3>
+          <!-- When the SUMCO memo is uploaded as assets/SUMCO_Memo.pdf, uncomment this:
+          <ul class="links">
+            <li><a class="btn solid" href="assets/SUMCO_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+          </ul>
+          -->
         </div>
       </article>
 
@@ -369,39 +386,37 @@ footer .btn { background: transparent; border-color: var(--rule); }
   <section id="research" aria-labelledby="research-h">
     <div class="sec-head rv">
       <h2 id="research-h">Physics <em>research</em></h2>
-      <span class="count">(02)</span>
+      <span class="count">(01)</span>
     </div>
 
     <div class="grid">
 
-      <!-- Paper. Background: a key figure from the paper at research/paper_figure.png (wide, about 2100 x 900 px). -->
-      <article class="card wide rv" style="--tint:#101417">
-        <img class="bg" src="research/paper_figure.png" alt="" loading="lazy" onerror="this.remove()">
-        <span class="wm it" aria-hidden="true">Physics</span>
-        <div class="top"><span class="tag paper">PAPER</span><span><span class="ph">[Journal or arXiv, Year]</span></span></div>
+      <article class="card wide rv" style="--tint:#000">
+        <img class="fig" src="assets/hltau.jpg" alt="" loading="lazy" width="641" height="487">
+        <div class="top"><span class="tag paper">REVIEW PAPER</span><span>Jan 2026</span></div>
         <div>
-          <p class="tk"><span class="ph">[Field, e.g. Condensed matter theory]</span></p>
-          <h3><span class="ph">[Paper title]</span></h3>
-          <p class="sub authors"><span class="ph">[Authors, with your name in the list]</span></p>
-          <p class="sub"><span class="ph">[One sentence: the question and the method, in plain words]</span></p>
+          <p class="tk">Astrophysics · Planet formation</p>
+          <h3>The Cradles of Planets: An Overview of Protoplanetary Disk Theory and Observation</h3>
+          <p class="sub authors">A. Dhahbi, A. Turki, M. Hammedi</p>
+          <p class="sub">How protoplanetary disks form from collapsing molecular cloud cores, their density and temperature structure, and the techniques used to observe them.</p>
           <ul class="links">
-            <li><a class="btn solid" href="research/Paper.pdf" target="_blank" rel="noopener">Paper <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-            <li><a class="btn" href="[ARXIV_OR_DOI_URL]" target="_blank" rel="noopener">arXiv / DOI<svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+            <li><a class="btn solid" href="assets/The_Cradles_of_Planets_Review_Paper.pdf" target="_blank" rel="noopener">Paper <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
         </div>
+        <p class="credit">HL Tau. Image: ALMA (ESO/NAOJ/NRAO)</p>
       </article>
 
-      <!-- Current research. Delete this whole <article> if you would rather not show it. -->
+      <!-- Current research card. Fill in and uncomment to show it.
       <article class="card wide rv" style="--tint:#13131A">
-        <img class="bg" src="research/current_figure.png" alt="" loading="lazy" onerror="this.remove()">
         <span class="wm it" aria-hidden="true">Ongoing</span>
-        <div class="top"><span class="tag wip">IN PROGRESS</span><span><span class="ph">[Since Month Year]</span></span></div>
+        <div class="top"><span class="tag wip">IN PROGRESS</span><span>Since Month Year</span></div>
         <div>
-          <p class="tk"><span class="ph">[Lab or advisor, Penn]</span></p>
-          <h3><span class="ph">[Working title of the project]</span></h3>
-          <p class="sub"><span class="ph">[One sentence: what you are trying to find out and how. No unpublished results.]</span></p>
+          <p class="tk">Lab or advisor, Penn</p>
+          <h3>Working title of the project</h3>
+          <p class="sub">One sentence: what you are trying to find out and how. No unpublished results.</p>
         </div>
       </article>
+      -->
 
     </div>
   </section>
