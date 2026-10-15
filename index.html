@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ahmed Turki · Equity Research</title>
-<meta name="description" content="Equity research by Ahmed Turki, University of Pennsylvania '29. Stock pitches on SUMCO, Copart, and FTAI Aviation, with memos, decks, and models.">
+<title>Ahmed Turki</title>
+<meta name="description" content="Ahmed Turki, University of Pennsylvania '29, Mathematical Economics and Physics. Stock pitches and physics research.">
 <meta name="theme-color" content="#0C0D0F">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Ahmed Turki · Equity Research">
-<meta property="og:description" content="Stock pitches on SUMCO (TSE: 3436), Copart (NASDAQ: CPRT), and FTAI Aviation (NASDAQ: FTAI), with memos, decks, and models.">
+<meta property="og:title" content="Ahmed Turki">
+<meta property="og:description" content="University of Pennsylvania '29, Mathematical Economics and Physics. Stock pitches and physics research.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,6 @@
   --accent: #D9FF5B;
   --accent-ink: #0C0D0F;
   --long: #7EE0A8;
-  --short: #FF8A7A;
   --ph: #F2C66D;
   --ph-bg: #2B2410;
 
@@ -53,8 +52,7 @@ body::after {
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
 a { color: inherit; text-decoration: none; }
-a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 /* Visible placeholder. Replace the whole span when you fill it in. */
 .ph { color: var(--ph); background: var(--ph-bg); padding: 0 4px; border-radius: 3px; font-style: normal; }
 
@@ -70,31 +68,49 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .bar a { position: relative; }
 .bar a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease); }
 .bar a:hover::after { transform: scaleX(1); transform-origin: left; }
-.clock { opacity: .75; }
 
 /* ---------- hero ---------- */
 .hero {
   min-height: 100svh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 120px var(--pad) 40px;
+  display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; column-gap: clamp(24px, 4vw, 64px);
+  padding: 110px var(--pad) 40px;
 }
 .hero h1 {
-  font: 600 clamp(60px, 15vw, 236px)/.88 var(--serif);
+  grid-column: 1; align-self: end;
+  font: 600 clamp(64px, 14vw, 220px)/.86 var(--serif);
   letter-spacing: -0.045em;
   margin: 0;
 }
 .hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero h1 .line + .line { padding-left: .5em; }
 .hero h1 .ch { display: inline-block; transform: translateY(110%); }
-.ready .hero h1 .ch { transform: none; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 35ms); }
-.hero h1 em { font-style: italic; font-weight: 400; color: var(--ink-2); }
+.ready .hero h1 .ch { transform: none; transition: transform 1.1s var(--ease); transition-delay: calc(var(--i) * 40ms); }
+
+/* portrait */
+.portrait {
+  grid-column: 2; grid-row: 1; align-self: end;
+  width: clamp(180px, 22vw, 320px); aspect-ratio: 4 / 5;
+  margin: 0; position: relative; overflow: hidden; border-radius: 4px;
+  background: #16181B;
+  clip-path: inset(100% 0 0 0);
+}
+.ready .portrait { clip-path: inset(0 0 0 0); transition: clip-path 1.3s var(--ease) .35s; }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: filter .8s var(--ease), transform 1.2s var(--ease); transform: scale(1.04); }
+.portrait:hover img { filter: grayscale(0); transform: scale(1); }
+.portrait .empty {
+  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  font: 400 12px/1.5 var(--mono); color: var(--ph); letter-spacing: .04em;
+  border: 1px dashed #4A3F1E; border-radius: 4px;
+}
 
 .hero-foot {
-  display: grid; grid-template-columns: 1.3fr 1fr auto; gap: 24px; align-items: end;
-  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule);
+  grid-column: 1 / 3;
+  display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap;
+  margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--rule);
   opacity: 0; transform: translateY(12px);
 }
-.ready .hero-foot { opacity: 1; transform: none; transition: opacity 1s var(--ease) .7s, transform 1s var(--ease) .7s; }
-.hero-foot p { margin: 0; color: var(--ink-2); max-width: 44ch; }
+.ready .hero-foot { opacity: 1; transform: none; transition: opacity 1s var(--ease) .8s, transform 1s var(--ease) .8s; }
+.hero-foot p { margin: 0; color: var(--ink-2); }
 .hero-foot .k { display: block; font: 500 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 6px; }
 .scroll-cue { font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); display: flex; align-items: center; gap: 10px; }
 .scroll-cue i { width: 1px; height: 36px; background: var(--rule); position: relative; overflow: hidden; display: block; }
@@ -103,7 +119,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 
 /* ---------- marquee ---------- */
 .marquee { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); overflow: hidden; padding: 14px 0; user-select: none; }
-.marquee .track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+.marquee .track { display: flex; width: max-content; animation: slide 40s linear infinite; }
 .marquee:hover .track { animation-play-state: paused; }
 .marquee span { font: 500 13px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); padding-right: 48px; white-space: nowrap; }
 .marquee b { color: var(--ink); font-weight: 500; }
@@ -112,76 +128,62 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 
 /* ---------- sections ---------- */
 section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
-.sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
 .sec-head h2 { font: 600 clamp(36px, 6vw, 80px)/1 var(--serif); letter-spacing: -0.03em; margin: 0; }
 .sec-head h2 em { font-style: italic; font-weight: 400; color: var(--ink-2); }
 .sec-head .count { font: 500 12px/1 var(--mono); color: var(--ink-3); letter-spacing: .06em; }
 
-/* ---------- pitch index ---------- */
-.index { border-top: 1px solid var(--rule); }
-.row { border-bottom: 1px solid var(--rule); scroll-margin-top: 60px; }
-.row summary {
-  list-style: none; cursor: pointer;
-  display: grid; grid-template-columns: 64px 1fr 150px 110px 150px 40px; align-items: center; gap: 16px;
-  padding: 30px 0;
-  position: relative; isolation: isolate;
-  transition: padding .5s var(--ease), color .4s var(--ease);
+/* ---------- project cards ---------- */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.6vw, 20px); }
+.card {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 4 / 5; border-radius: 6px;
+  background: var(--tint, #15171A);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: clamp(18px, 2vw, 26px);
 }
-.row summary::-webkit-details-marker { display: none; }
-.row summary::before {
-  content: ""; position: absolute; inset: 0 calc(var(--pad) * -1); z-index: -1;
-  background: var(--accent);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform .5s var(--ease);
+.card.wide { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+
+/* background layers: image (if present) over a ticker watermark, with a gradient for legibility */
+.card .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transform: scale(1.02); transition: transform 1.4s var(--ease), filter .8s var(--ease); filter: saturate(.85) brightness(.85); }
+.card .wm {
+  position: absolute; z-index: -3; right: -.06em; top: 50%; transform: translateY(-62%);
+  font: 600 clamp(90px, 13vw, 200px)/1 var(--serif); letter-spacing: -0.05em;
+  color: rgba(255,255,255,.06); white-space: nowrap; pointer-events: none;
+  transition: transform 1.4s var(--ease);
+}
+.card .wm.it { font-style: italic; font-weight: 400; }
+.card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(8,9,11,.55) 0%, rgba(8,9,11,0) 30%, rgba(8,9,11,.25) 55%, rgba(8,9,11,.92) 100%);
+}
+.card::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  border: 1px solid rgba(255,255,255,.08); border-radius: inherit;
 }
 @media (hover: hover) {
-  .row summary:hover { color: var(--accent-ink); padding-left: 16px; }
-  .row summary:hover::before { transform: scaleY(1); }
-  .row summary:hover .n, .row summary:hover .tk, .row summary:hover .dt { color: var(--accent-ink); }
-  .row summary:hover .dir { border-color: var(--accent-ink); color: var(--accent-ink); }
+  .card:hover .bg { transform: scale(1.08); filter: saturate(1) brightness(.75); }
+  .card:hover .wm { transform: translate(-4%, -62%); }
 }
-.row .n { font: 500 12px/1 var(--mono); color: var(--ink-3); }
-.row .name { font: 600 clamp(26px, 4vw, 52px)/1.05 var(--serif); letter-spacing: -0.025em; }
-.row .tk, .row .dt { font: 400 13px/1.3 var(--mono); color: var(--ink-2); }
-.row .dir {
-  justify-self: start;
-  font: 500 11px/1 var(--mono); letter-spacing: .1em;
-  padding: 6px 10px 5px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2);
-}
-.row .dir.long { color: var(--long); border-color: currentColor; }
-.row .dir.short { color: var(--short); border-color: currentColor; }
-.row .plus { width: 22px; height: 22px; position: relative; justify-self: end; }
-.row .plus::before, .row .plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; transition: transform .5s var(--ease); }
-.row .plus::after { transform: rotate(90deg); }
-.row[open] .plus::after { transform: rotate(0); }
 
-.detail {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px;
-  padding: 8px 56px 48px 80px;
-}
-.row[open] .detail { animation: open .7s var(--ease); }
-@keyframes open { from { opacity: 0; transform: translateY(-10px); } }
-.detail .lede { grid-column: 1 / 3; font: 400 clamp(19px, 2vw, 24px)/1.45 var(--serif); margin: 0; max-width: 46ch; }
-.detail .ctx { grid-column: 1 / 3; margin: 0 0 8px; color: var(--ink-2); font-size: 14px; }
-.detail dl { margin: 0; }
-.detail dt { font: 500 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
-.detail dd { margin: 4px 0 20px; max-width: 52ch; }
-.facts { grid-column: 1; }
-.side { grid-column: 2; }
-.figs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0 0 20px !important; }
-.figs div { padding: 14px 12px 14px 0; min-width: 0; }
-.figs div + div { padding-left: 12px; border-left: 1px solid var(--rule); }
-.figs dd { margin: 4px 0 0; font: 500 22px/1.2 var(--mono); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.figs .pos { color: var(--long); }
-.figs .neg { color: var(--short); }
-.since { margin: 0 0 24px; font: italic 400 16px/1.5 var(--serif); color: var(--ink-2); }
-.since .asof { font: 400 12px var(--mono); font-style: normal; color: var(--ink-3); }
+.card .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 500 12px/1 var(--mono); color: rgba(236,234,228,.85); }
+.tag { font: 500 11px/1 var(--mono); letter-spacing: .1em; padding: 6px 10px 5px; border-radius: 999px; border: 1px solid currentColor; backdrop-filter: blur(6px); background: rgba(12,13,15,.35); }
+.tag.long { color: var(--long); }
+.tag.paper { color: var(--accent); }
+.tag.wip { color: var(--ink-2); }
+.card .tk { margin: 0 0 6px; font: 400 12px/1.3 var(--mono); color: rgba(236,234,228,.75); letter-spacing: .04em; }
+.card h3 { margin: 0; font: 600 clamp(26px, 2.6vw, 38px)/1.05 var(--serif); letter-spacing: -0.02em; }
+.card.wide h3 { font-size: clamp(26px, 3.4vw, 48px); max-width: 22ch; }
+.card .sub { margin: 10px 0 0; font-size: 14px; color: rgba(236,234,228,.8); max-width: 60ch; }
+.card .sub.authors { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
 
-.files { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.links { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 11px 16px; border: 1px solid var(--rule); border-radius: 999px;
-  font: 500 13px/1 var(--sans);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px; border-radius: 999px;
+  border: 1px solid rgba(236,234,228,.28);
+  background: rgba(12,13,15,.35); backdrop-filter: blur(8px);
+  font: 500 13px/1 var(--sans); color: var(--ink);
   position: relative; overflow: hidden; isolation: isolate;
   transition: color .4s var(--ease), border-color .4s var(--ease);
 }
@@ -190,16 +192,9 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
 .btn:hover::before { transform: none; }
 .btn .ft { font: 400 11px var(--mono); opacity: .7; }
 .btn svg { width: 11px; height: 11px; }
-
-/* ---------- about ---------- */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 1px solid var(--rule); padding-top: 32px; }
-.about p { margin: 0; font: 400 clamp(22px, 2.6vw, 34px)/1.3 var(--serif); letter-spacing: -0.01em; max-width: 28ch; }
-.about ul { list-style: none; margin: 0; padding: 0; }
-.about li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
-.about li span:first-child { font: 500 11px/1.6 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
-.about li span:last-child { text-align: right; }
-.about li a { border-bottom: 1px solid var(--rule); transition: border-color .3s; }
-.about li a:hover { border-color: var(--accent); }
+.btn.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn.solid::before { background: var(--accent); }
+.btn.solid:hover { color: var(--accent-ink); border-color: var(--accent); }
 
 /* ---------- footer ---------- */
 footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
@@ -209,6 +204,7 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
 .cta .arw { font-family: var(--sans); font-weight: 300; transform: rotate(-45deg); }
 .cta:hover .arw { transform: translate(.08em, -.08em) rotate(-45deg); }
 .f-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+footer .btn { background: transparent; border-color: var(--rule); }
 .legal { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; margin-top: 80px; padding-top: 18px; border-top: 1px solid var(--rule); font: 400 12px/1.5 var(--mono); color: var(--ink-3); }
 
 /* ---------- reveal on scroll ---------- */
@@ -216,58 +212,48 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
 .js .rv.in { opacity: 1; transform: none; }
 
 /* ---------- cursor ---------- */
-.cursor {
-  position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none;
-  width: 0; height: 0; mix-blend-mode: difference;
-  opacity: 0; transition: opacity .3s;
-}
-.cursor i {
-  position: absolute; left: 0; top: 0;
-  width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
-  background: #fff;
-  display: grid; place-items: center;
-  transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease);
-}
-.cursor b { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #000; opacity: 0; transition: opacity .2s; }
+.cursor { position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none; width: 0; height: 0; mix-blend-mode: difference; opacity: 0; transition: opacity .3s; }
+.cursor i { position: absolute; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #fff; transition: width .35s var(--ease), height .35s var(--ease), margin .35s var(--ease); }
 .cursor.on { opacity: 1; }
-.cursor.big i { width: 84px; height: 84px; margin: -42px 0 0 -42px; }
-.cursor.big b { opacity: 1; }
 .cursor.link i { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+.cursor.card i { width: 22px; height: 22px; margin: -11px 0 0 -11px; }
 @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
 
 /* ---------- responsive ---------- */
-@media (max-width: 860px) {
-  .row summary { grid-template-columns: 30px 1fr auto 22px; gap: 6px 12px; padding: 24px 0; }
-  .row .tk { grid-column: 2; grid-row: 2; }
-  .row .dt { display: none; }
-  .row .dir { grid-column: 3; grid-row: 1; }
-  .row .plus { grid-column: 4; grid-row: 1; }
-  .detail { grid-template-columns: 1fr; gap: 8px; padding: 0 0 36px; }
-  .detail .lede, .detail .ctx, .facts, .side { grid-column: 1; }
-  .hero-foot { grid-template-columns: 1fr; }
-  .scroll-cue { display: none; }
-  .about { grid-template-columns: 1fr; }
-  .bar nav a.hide-sm { display: none; }
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .card.wide { aspect-ratio: 16 / 10; }
 }
-@media (max-width: 420px) {
-  .bar .clock { display: none; }
-  .figs dd { font-size: 17px; }
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; align-content: end; }
+  .portrait { grid-column: 1; grid-row: 1; width: 46vw; max-width: 220px; margin-bottom: 28px; }
+  .hero h1 { grid-row: 2; }
+  .hero-foot { grid-column: 1; }
+  .scroll-cue { display: none; }
+  .grid { grid-template-columns: 1fr; }
+  .card, .card.wide { aspect-ratio: auto; min-height: 400px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .hero h1 .ch { transform: none; }
+  .portrait { clip-path: none; }
   .hero-foot, .js .rv { opacity: 1; transform: none; }
 }
 
 @media print {
-  :root { --bg: #fff; --ink: #000; --ink-2: #222; --ink-3: #444; --rule: #bbb; --long: #000; --short: #000; --ph: #000; --ph-bg: #fff; }
-  body::after, .bar, .cursor, .marquee, .scroll-cue, .row .plus { display: none !important; }
+  :root { --bg: #fff; --ink: #000; --ink-2: #222; --ink-3: #444; --rule: #bbb; --long: #000; --ph: #000; --ph-bg: #fff; }
+  body::after, .bar, .cursor, .marquee, .scroll-cue, .card .bg, .card .wm { display: none !important; }
   .hero { min-height: 0; padding-top: 0; }
   .hero h1 { font-size: 56px; }
   .hero h1 .ch, .hero-foot, .js .rv { transform: none !important; opacity: 1 !important; }
-  .row + .row { break-before: page; }
+  .portrait { clip-path: none !important; }
+  .card { aspect-ratio: auto !important; border: 1px solid #bbb; color: #000; background: #fff !important; break-inside: avoid; }
+  .card::before { display: none; }
+  .card .top, .card .tk, .card .sub, .btn { color: #000; }
+  .btn { border-color: #000; background: none; }
+  .btn::after { content: " (" attr(href) ")"; font-size: 9pt; }
 }
 </style>
 </head>
@@ -279,183 +265,157 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
   <symbol id="i-dl" viewBox="0 0 12 12"><path d="M6 1.5v6.5M3.2 5.6 6 8.4l2.8-2.8M2 10.5h8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
-<div class="cursor" aria-hidden="true"><i><b>Open</b></i></div>
+<div class="cursor" aria-hidden="true"><i></i></div>
 
 <header class="bar">
   <a href="#top">Ahmed Turki</a>
-  <span class="clock mono">PHL <span id="clock">--:--:--</span></span>
   <nav aria-label="Primary">
-    <a href="#work">Work</a>
-    <a href="#about" class="hide-sm">About</a>
+    <a href="#pitches">Pitches</a>
+    <a href="#research">Research</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <main id="top">
   <section class="hero" aria-label="Introduction">
-    <h1 aria-label="Ahmed Turki, equity research">
-      <span class="line" aria-hidden="true" data-split>Ahmed Turki</span>
-      <span class="line" aria-hidden="true"><em data-split>equity research</em></span>
+    <h1 aria-label="Ahmed Turki">
+      <span class="line" aria-hidden="true" data-split>Ahmed</span>
+      <span class="line" aria-hidden="true" data-split>Turki</span>
     </h1>
+    <!-- Add your photo at assets/photo.jpg (portrait, about 800 x 1000 px). The dashed box disappears once it loads. -->
+    <figure class="portrait">
+      <div class="empty">[ YOUR PHOTO ]<br>assets/photo.jpg</div>
+      <img src="assets/photo.jpg" alt="Ahmed Turki" width="800" height="1000" onerror="this.remove()">
+    </figure>
     <div class="hero-foot">
-      <p><span class="k">Focus</span><span class="ph">[ONE-LINE FOCUS, in your voice]</span></p>
-      <p><span class="k">Education</span>University of Pennsylvania '29<br>Mathematical Economics and Physics, Statistics minor</p>
+      <p><span class="k">Education</span>University of Pennsylvania '29<br>Mathematical Economics and Physics</p>
       <div class="scroll-cue" aria-hidden="true">Scroll<i></i></div>
     </div>
   </section>
 
   <div class="marquee" aria-hidden="true">
     <div class="track">
-      <span><b>SUMCO</b> TSE: 3436 <i class="dot">●</i></span>
-      <span><b>Copart</b> NASDAQ: CPRT <i class="dot">●</i></span>
-      <span><b>FTAI Aviation</b> NASDAQ: FTAI <i class="dot">●</i></span>
-      <span>Memos, decks, models <i class="dot">●</i></span>
-      <span><b>SUMCO</b> TSE: 3436 <i class="dot">●</i></span>
-      <span><b>Copart</b> NASDAQ: CPRT <i class="dot">●</i></span>
-      <span><b>FTAI Aviation</b> NASDAQ: FTAI <i class="dot">●</i></span>
-      <span>Memos, decks, models <i class="dot">●</i></span>
+      <span><b>Mathematical Economics</b> <i class="dot">●</i></span>
+      <span><b>Physics</b> <i class="dot">●</i></span>
+      <span>Stock pitches <i class="dot">●</i></span>
+      <span>Research <i class="dot">●</i></span>
+      <span><b>Penn '29</b> <i class="dot">●</i></span>
+      <span><b>Mathematical Economics</b> <i class="dot">●</i></span>
+      <span><b>Physics</b> <i class="dot">●</i></span>
+      <span>Stock pitches <i class="dot">●</i></span>
+      <span>Research <i class="dot">●</i></span>
+      <span><b>Penn '29</b> <i class="dot">●</i></span>
     </div>
   </div>
 
-  <section id="work" aria-labelledby="work-h">
+  <!-- ===================== PITCHES ===================== -->
+  <section id="pitches" aria-labelledby="pitches-h">
     <div class="sec-head rv">
-      <h2 id="work-h">Selected <em>pitches</em></h2>
+      <h2 id="pitches-h">Stock <em>pitches</em></h2>
       <span class="count">(03)</span>
     </div>
 
-    <div class="index">
+    <!-- Card background: put an image at the src path (deck title slide or a company photo, about 1200 x 1500 px).
+         If the file is missing, the card falls back to the large ticker watermark. -->
+    <div class="grid">
 
-      <!-- PITCH 1: SUMCO -->
-      <details class="row rv" id="sumco">
-        <summary data-cursor="Open">
-          <span class="n">01</span>
-          <span class="name">SUMCO Corporation</span>
-          <span class="tk">TSE: 3436</span>
-          <!-- Set to <span class="dir long">LONG</span> or <span class="dir short">SHORT</span> -->
-          <span class="dir"><span class="ph">[L/S]</span></span>
-          <span class="dt">April 2026</span>
-          <span class="plus" aria-hidden="true"></span>
-        </summary>
-        <div class="detail">
-          <p class="lede"><span class="ph">[Thesis: 2 to 3 sentences, leading with what the market is missing]</span></p>
-          <p class="ctx"><span class="ph">[Context: where it was pitched, team size, your role]</span></p>
-          <dl class="facts">
-            <dt>Catalysts</dt><dd><span class="ph">[One line]</span></dd>
-            <dt>Key risk</dt><dd><span class="ph">[One line]</span></dd>
-          </dl>
-          <div class="side">
-            <!-- Implied return: add class "pos" or "neg" to the third dd -->
-            <dl class="figs">
-              <div><dt>At pitch</dt><dd><span class="ph">[¥]</span></dd></div>
-              <div><dt>Target</dt><dd><span class="ph">[¥]</span></dd></div>
-              <div><dt>Implied</dt><dd><span class="ph">[%]</span></dd></div>
-            </dl>
-            <p class="since">Since pitch: <span class="ph">[Price move and whether your view changed]</span> <span class="asof">as of <span class="ph">[DATE]</span></span></p>
-            <ul class="files">
-              <li><a class="btn" href="pitches/SUMCO_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/SUMCO_Deck.pdf" target="_blank" rel="noopener">Deck <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/SUMCO_Model.xlsx" download>Model <span class="ft">XLSX, downloads</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
-            </ul>
-          </div>
+      <article class="card rv" style="--tint:#1A1714">
+        <img class="bg" src="pitches/SUMCO_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <span class="wm" aria-hidden="true">3436</span>
+        <div class="top"><span class="tag long">LONG</span><span>Apr 2026</span></div>
+        <div>
+          <p class="tk">TSE: 3436</p>
+          <h3>SUMCO Corporation</h3>
+          <ul class="links">
+            <li><a class="btn solid" href="pitches/SUMCO_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+            <li><a class="btn" href="pitches/SUMCO_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
+          </ul>
         </div>
-      </details>
+      </article>
 
-      <!-- PITCH 2: COPART -->
-      <details class="row rv" id="cprt">
-        <summary data-cursor="Open">
-          <span class="n">02</span>
-          <span class="name">Copart, Inc.</span>
-          <span class="tk">NASDAQ: CPRT</span>
-          <span class="dir long">LONG</span>
-          <span class="dt">September 2026</span>
-          <span class="plus" aria-hidden="true"></span>
-        </summary>
-        <div class="detail">
-          <p class="lede"><span class="ph">[Thesis: 2 to 3 sentences, leading with what the market is missing]</span></p>
-          <p class="ctx">Citadel stock pitch competition, team of <span class="ph">[N]</span>. I built the DCF and valuation model and wrote Thesis One.</p>
-          <dl class="facts">
-            <dt>Catalysts</dt><dd><span class="ph">[One line]</span></dd>
-            <dt>Key risk</dt><dd><span class="ph">[One line]</span></dd>
-          </dl>
-          <div class="side">
-            <dl class="figs">
-              <div><dt>At pitch</dt><dd><span class="ph">[$]</span></dd></div>
-              <div><dt>Target</dt><dd><span class="ph">[$]</span></dd></div>
-              <div><dt>Implied</dt><dd><span class="ph">[%]</span></dd></div>
-            </dl>
-            <p class="since">Since pitch: <span class="ph">[Price move and whether your view changed]</span> <span class="asof">as of <span class="ph">[DATE]</span></span></p>
-            <ul class="files">
-              <li><a class="btn" href="pitches/CPRT_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/CPRT_Deck.pdf" target="_blank" rel="noopener">Deck <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/CPRT_Model.xlsx" download>Model <span class="ft">XLSX, downloads</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
-            </ul>
-          </div>
+      <article class="card rv" style="--tint:#141A17">
+        <img class="bg" src="pitches/CPRT_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <span class="wm" aria-hidden="true">CPRT</span>
+        <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
+        <div>
+          <p class="tk">NASDAQ: CPRT</p>
+          <h3>Copart, Inc.</h3>
+          <p class="sub">Citadel stock pitch competition, team of <span class="ph">[N]</span>. I built the valuation model.</p>
+          <ul class="links">
+            <li><a class="btn solid" href="pitches/CPRT_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+            <li><a class="btn" href="pitches/CPRT_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
+          </ul>
         </div>
-      </details>
+      </article>
 
-      <!-- PITCH 3: FTAI -->
-      <details class="row rv" id="ftai">
-        <summary data-cursor="Open">
-          <span class="n">03</span>
-          <span class="name">FTAI Aviation Ltd.</span>
-          <span class="tk">NASDAQ: FTAI</span>
-          <span class="dir"><span class="ph">[L/S]</span></span>
-          <span class="dt">September 2026</span>
-          <span class="plus" aria-hidden="true"></span>
-        </summary>
-        <div class="detail">
-          <p class="lede"><span class="ph">[Thesis: 2 to 3 sentences, leading with what the market is missing]</span></p>
-          <p class="ctx"><span class="ph">[Context: where it was pitched, team size, your role]</span></p>
-          <dl class="facts">
-            <!-- Keep this row only if the pitch is LONG -->
-            <dt>Short report</dt><dd><span class="ph">[One line on how the thesis addresses the 2025 short-seller report]</span></dd>
-            <dt>Catalysts</dt><dd><span class="ph">[One line]</span></dd>
-            <dt>Key risk</dt><dd><span class="ph">[One line]</span></dd>
-          </dl>
-          <div class="side">
-            <dl class="figs">
-              <div><dt>At pitch</dt><dd><span class="ph">[$]</span></dd></div>
-              <div><dt>Target</dt><dd><span class="ph">[$]</span></dd></div>
-              <div><dt>Implied</dt><dd><span class="ph">[%]</span></dd></div>
-            </dl>
-            <p class="since">Since pitch: <span class="ph">[Price move and whether your view changed]</span> <span class="asof">as of <span class="ph">[DATE]</span></span></p>
-            <ul class="files">
-              <li><a class="btn" href="pitches/FTAI_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/FTAI_Deck.pdf" target="_blank" rel="noopener">Deck <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
-              <li><a class="btn" href="pitches/FTAI_Model.xlsx" download>Model <span class="ft">XLSX, downloads</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
-            </ul>
-          </div>
+      <article class="card rv" style="--tint:#14171C">
+        <img class="bg" src="pitches/FTAI_cover.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <span class="wm" aria-hidden="true">FTAI</span>
+        <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
+        <div>
+          <p class="tk">NASDAQ: FTAI</p>
+          <h3>FTAI Aviation Ltd.</h3>
+          <ul class="links">
+            <li><a class="btn solid" href="pitches/FTAI_Deck.pdf" target="_blank" rel="noopener">Pitch <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+            <li><a class="btn" href="pitches/FTAI_Model.xlsx" download>Model <span class="ft">XLSX</span><svg aria-hidden="true"><use href="#i-dl"/></svg></a></li>
+          </ul>
         </div>
-      </details>
+      </article>
 
     </div>
   </section>
 
-  <section id="about" aria-labelledby="about-h">
+  <!-- ===================== RESEARCH ===================== -->
+  <section id="research" aria-labelledby="research-h">
     <div class="sec-head rv">
-      <h2 id="about-h">About</h2>
+      <h2 id="research-h">Physics <em>research</em></h2>
+      <span class="count">(02)</span>
     </div>
-    <div class="about rv">
-      <p><span class="ph">[Two sentences about you and what you look for in a stock]</span></p>
-      <ul>
-        <li><span>School</span><span>University of Pennsylvania '29</span></li>
-        <li><span>Major</span><span>Mathematical Economics and Physics</span></li>
-        <li><span>Minor</span><span>Statistics</span></li>
-        <li><span>Resume</span><span><a href="assets/Ahmed_Turki_Resume.pdf" target="_blank" rel="noopener">PDF ↗</a></span></li>
-      </ul>
+
+    <div class="grid">
+
+      <!-- Paper. Background: a key figure from the paper at research/paper_figure.png (wide, about 2100 x 900 px). -->
+      <article class="card wide rv" style="--tint:#101417">
+        <img class="bg" src="research/paper_figure.png" alt="" loading="lazy" onerror="this.remove()">
+        <span class="wm it" aria-hidden="true">Physics</span>
+        <div class="top"><span class="tag paper">PAPER</span><span><span class="ph">[Journal or arXiv, Year]</span></span></div>
+        <div>
+          <p class="tk"><span class="ph">[Field, e.g. Condensed matter theory]</span></p>
+          <h3><span class="ph">[Paper title]</span></h3>
+          <p class="sub authors"><span class="ph">[Authors, with your name in the list]</span></p>
+          <p class="sub"><span class="ph">[One sentence: the question and the method, in plain words]</span></p>
+          <ul class="links">
+            <li><a class="btn solid" href="research/Paper.pdf" target="_blank" rel="noopener">Paper <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+            <li><a class="btn" href="[ARXIV_OR_DOI_URL]" target="_blank" rel="noopener">arXiv / DOI<svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Current research. Delete this whole <article> if you would rather not show it. -->
+      <article class="card wide rv" style="--tint:#13131A">
+        <img class="bg" src="research/current_figure.png" alt="" loading="lazy" onerror="this.remove()">
+        <span class="wm it" aria-hidden="true">Ongoing</span>
+        <div class="top"><span class="tag wip">IN PROGRESS</span><span><span class="ph">[Since Month Year]</span></span></div>
+        <div>
+          <p class="tk"><span class="ph">[Lab or advisor, Penn]</span></p>
+          <h3><span class="ph">[Working title of the project]</span></h3>
+          <p class="sub"><span class="ph">[One sentence: what you are trying to find out and how. No unpublished results.]</span></p>
+        </div>
+      </article>
+
     </div>
   </section>
 </main>
 
 <footer id="contact">
-  <a class="cta rv" href="mailto:[EMAIL]" data-cursor="Email"><span>Get in</span> <span>touch</span> <span class="arw" aria-hidden="true">→</span></a>
+  <a class="cta rv" href="mailto:[EMAIL]"><span>Get in</span> <span>touch</span> <span class="arw" aria-hidden="true">→</span></a>
   <div class="f-links rv">
     <a class="btn" href="[LINKEDIN_URL]" target="_blank" rel="noopener">LinkedIn <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
     <a class="btn" href="https://github.com/ahturki" target="_blank" rel="noopener">GitHub <svg aria-hidden="true"><use href="#i-ext"/></svg></a>
     <a class="btn" href="assets/Ahmed_Turki_Resume.pdf" target="_blank" rel="noopener">Resume <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a>
   </div>
   <div class="legal">
-    <span>Student research for educational purposes. Not investment advice.</span>
+    <span>Stock pitches are student research for educational purposes. Not investment advice.</span>
     <span>Last updated October 2026</span>
   </div>
 </footer>
@@ -464,38 +424,28 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Split hero lines into characters for the staggered reveal
+  // Split hero name into characters for the staggered reveal
   let i = 0;
   document.querySelectorAll('[data-split]').forEach(el => {
     const text = el.textContent; el.textContent = '';
     for (const c of text) {
       const s = document.createElement('span');
       s.className = 'ch'; s.style.setProperty('--i', i++);
-      s.textContent = c === ' ' ? ' ' : c;
+      s.textContent = c;
       el.appendChild(s);
     }
   });
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('ready')));
 
-  // Philadelphia clock
-  const clock = document.getElementById('clock');
-  const fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-  const tick = () => { clock.textContent = fmt.format(new Date()); };
-  tick(); setInterval(tick, 1000);
-
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { threshold: 0 });
-  document.querySelectorAll('.rv').forEach((el, k) => { el.style.transitionDelay = (k % 3) * 80 + 'ms'; io.observe(el); });
-
-  // Open a pitch when arriving via #sumco, #cprt, #ftai
-  const openHash = () => { const d = document.getElementById(location.hash.slice(1)); if (d && d.tagName === 'DETAILS') d.open = true; };
-  addEventListener('hashchange', openHash); openHash();
+  document.querySelectorAll('.rv').forEach((el, k) => { el.style.transitionDelay = (k % 3) * 90 + 'ms'; io.observe(el); });
 
   // Custom cursor, fine pointers only
   if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  const cur = document.querySelector('.cursor'), label = cur.querySelector('b');
+  const cur = document.querySelector('.cursor');
   let x = -100, y = -100, cx = x, cy = y;
   addEventListener('mousemove', e => { x = e.clientX; y = e.clientY; cur.classList.add('on'); });
   document.addEventListener('mouseleave', () => cur.classList.remove('on'));
@@ -504,17 +454,11 @@ footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
     cur.style.transform = `translate(${cx}px, ${cy}px)`;
     requestAnimationFrame(loop);
   })();
-  const setLabel = t => { const d = t.closest('details'); label.textContent = d && d.open ? 'Close' : t.dataset.cursor; };
   document.addEventListener('mouseover', e => {
-    const t = e.target.closest('[data-cursor], a, button, summary');
-    cur.classList.remove('big', 'link');
-    if (!t) return;
-    if (t.dataset.cursor) { setLabel(t); cur.classList.add('big'); }
-    else cur.classList.add('link');
+    cur.classList.remove('link', 'card');
+    if (e.target.closest('a')) cur.classList.add('link');
+    else if (e.target.closest('.card')) cur.classList.add('card');
   });
-  document.addEventListener('toggle', e => {
-    if (e.target.tagName === 'DETAILS') label.textContent = e.target.open ? 'Close' : 'Open';
-  }, true);
 })();
 </script>
 </body>
