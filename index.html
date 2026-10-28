@@ -24,6 +24,7 @@
   --accent: #D9FF5B;
   --accent-ink: #0C0D0F;
   --long: #7EE0A8;
+  --short: #FF8A7A;
   --ph: #F2C66D;
   --ph-bg: #2B2410;
 
@@ -244,6 +245,55 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
 .btn.solid::before { background: var(--accent); }
 .btn.solid:hover { color: var(--accent-ink); border-color: var(--accent); }
 
+
+/* ---------- pitch carousel ---------- */
+.rail-ctrl { display: flex; align-items: center; gap: 10px; }
+.rail-ctrl .count { margin-right: 8px; white-space: nowrap; }
+.arrow {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: none; color: var(--ink); border: 1px solid var(--rule); cursor: pointer;
+  position: relative; overflow: hidden; isolation: isolate;
+  transition: color .35s var(--ease), border-color .35s var(--ease), opacity .3s;
+}
+.arrow svg { width: 16px; height: 16px; transition: transform .45s var(--ease); }
+.arrow::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--accent); border-radius: 50%; transform: scale(0); transition: transform .45s var(--ease); }
+.arrow:hover:not(:disabled) { color: var(--accent-ink); border-color: var(--accent); }
+.arrow:hover:not(:disabled)::before { transform: scale(1); }
+.arrow[data-dir="1"]:hover:not(:disabled) svg { transform: translateX(2px); }
+.arrow[data-dir="-1"]:hover:not(:disabled) svg { transform: translateX(-2px); }
+.arrow:disabled { opacity: .3; cursor: default; }
+.arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.rail-wrap { margin-right: calc(var(--pad) * -1); }
+.rail {
+  display: flex; gap: clamp(12px, 1.6vw, 20px);
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  padding-right: var(--pad);
+  scrollbar-width: none; cursor: grab;
+}
+.rail::-webkit-scrollbar { display: none; }
+.rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
+.rail.drag { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
+.rail > .card { flex: 0 0 clamp(280px, 27vw, 400px); scroll-snap-align: start; will-change: transform; transform-origin: 50% 100%; }
+.rail .card .plate img, .rail .card .plate-txt { will-change: transform; }
+.plate-txt { font: 600 clamp(56px, 6vw, 88px)/1 var(--serif); letter-spacing: -0.04em; color: rgba(12,13,15,.85); }
+.card:has(.plate) .tag.short { color: #B42E22; background: rgba(255,255,255,.92); border-color: transparent; }
+.tag.short { color: var(--short, #FF8A7A); }
+
+.rail-prog { position: relative; height: 1px; background: var(--rule); margin-top: 28px; overflow: hidden; }
+.rail-prog i { position: absolute; left: 0; top: 0; height: 100%; width: 30%; background: var(--accent); transform-origin: 0 0; }
+
+@media (max-width: 700px) {
+  .rail > .card { flex-basis: 82vw; }
+  .rail-ctrl .arrow { width: 38px; height: 38px; }
+}
+@media print {
+  .rail-ctrl, .rail-prog { display: none !important; }
+  .rail { display: block; overflow: visible; }
+  .rail > .card { transform: none !important; opacity: 1 !important; margin-bottom: 16px; }
+}
+
 /* ---------- footer ---------- */
 footer { padding: clamp(100px, 14vw, 180px) var(--pad) 28px; }
 .cta { display: inline-block; font: 600 clamp(48px, 11vw, 170px)/.9 var(--serif); letter-spacing: -0.045em; }
@@ -300,6 +350,8 @@ footer .btn { background: transparent; border-color: var(--rule); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .rail { scroll-behavior: auto; }
+  .rail > .card { transform: none !important; opacity: 1 !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .hero h1 .ch { transform: none; }
   .portrait { clip-path: none; }
@@ -395,12 +447,17 @@ footer .btn { background: transparent; border-color: var(--rule); }
   <section id="pitches" aria-labelledby="pitches-h">
     <div class="sec-head rv">
       <h2 id="pitches-h">Stock <em>pitches</em></h2>
-      <span class="count">(03)</span>
+      <div class="rail-ctrl">
+        <span class="count">(<span id="rail-n">04</span>)</span>
+        <button type="button" class="arrow" data-dir="-1" aria-label="Previous pitch"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="arrow" data-dir="1" aria-label="Next pitch"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
     </div>
 
-    <div class="grid">
+    <div class="rail-wrap rv">
+    <div class="rail" id="rail" tabindex="0" aria-label="Stock pitches, scroll horizontally">
 
-      <article class="card rv" style="--plate:#0D5DB8; --top:rgba(255,255,255,.85); --tagc:#0D5DB8">
+      <article class="card" style="--plate:#0D5DB8; --top:rgba(255,255,255,.85); --tagc:#0D5DB8">
         <div class="plate" aria-hidden="true"><img src="assets/copart_logo.png" alt="" style="--w:84%"></div>
         <div class="top"><span class="tag long">LONG</span><span>Sep 2026</span></div>
         <div>
@@ -413,7 +470,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
         </div>
       </article>
 
-      <article class="card rv" style="--plate:#F3F2EE">
+      <article class="card" style="--plate:#F3F2EE">
         <div class="plate" aria-hidden="true"><img src="assets/FTAI.png" alt="" width="600" height="300" style="--w:72%"></div>
         <div class="top"><span class="tag long">LONG</span><span>Oct 2026</span></div>
         <div>
@@ -426,7 +483,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
         </div>
       </article>
 
-      <article class="card rv" style="--plate:#F3F2EE">
+      <article class="card" style="--plate:#F3F2EE">
         <div class="plate" aria-hidden="true"><img src="assets/SUMCO.png" alt="" width="320" height="320" style="--w:62%"></div>
         <div class="top"><span class="tag long">LONG</span><span>Apr 2026</span></div>
         <div>
@@ -439,7 +496,26 @@ footer .btn { background: transparent; border-color: var(--rule); }
         </div>
       </article>
 
+      <!-- NIKE (placeholder). To finish:
+           1. Upload the logo as assets/NIKE.png (transparent or white background) and the memo as assets/NKE_Memo.pdf
+           2. Replace the NKE text below with: <img src="assets/NIKE.png" alt="" style="--w:60%">
+           3. Replace the two amber placeholders (date and role line) -->
+      <article class="card" style="--plate:#F3F2EE">
+        <div class="plate" aria-hidden="true"><span class="plate-txt">NKE</span></div>
+        <div class="top"><span class="tag short">SHORT</span><span><span class="ph">[Mon] 2026</span></span></div>
+        <div>
+          <p class="tk">NYSE: NKE</p>
+          <h3>Nike, Inc.</h3>
+          <p class="sub"><span class="ph">[Solo or team pitch, and your role]</span></p>
+          <ul class="links">
+            <li><a class="btn solid" href="assets/NKE_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+          </ul>
+        </div>
+      </article>
+
     </div>
+    </div>
+    <div class="rail-prog" aria-hidden="true"><i></i></div>
   </section>
 
   <!-- ===================== RESEARCH ===================== -->
@@ -532,6 +608,74 @@ footer .btn { background: transparent; border-color: var(--rule); }
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
   }));
 
+  // Pitch carousel: arrows, drag, keyboard, progress, edge animation
+  (() => {
+    const rail = document.getElementById('rail'); if (!rail) return;
+    const cards = [...rail.querySelectorAll('.card')];
+    const prev = document.querySelector('.arrow[data-dir="-1"]'), next = document.querySelector('.arrow[data-dir="1"]');
+    const bar = document.querySelector('.rail-prog i');
+    document.getElementById('rail-n').textContent = String(cards.length).padStart(2, '0');
+    const step = () => cards[0].offsetWidth + parseFloat(getComputedStyle(rail).columnGap || 16);
+    const go = d => rail.scrollBy({ left: d * step() });
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    rail.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+
+    // mouse drag (touch uses native swipe)
+    let down = false, sx = 0, sl = 0, moved = 0;
+    rail.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = 0; sx = e.clientX; sl = rail.scrollLeft;
+    });
+    addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
+      if (moved > 4) { rail.classList.add('drag'); rail.scrollLeft = sl - dx; }
+    });
+    addEventListener('pointerup', () => {
+      if (!down) return; down = false;
+      if (rail.classList.contains('drag')) {
+        // let snapping take over from where the drag ended
+        const x = rail.scrollLeft; rail.classList.remove('drag');
+        rail.scrollLeft = x; rail.scrollBy({ left: 0 });
+      }
+    });
+    rail.addEventListener('click', e => { if (moved > 4) { e.preventDefault(); e.stopPropagation(); } }, true);
+    rail.addEventListener('dragstart', e => e.preventDefault());
+
+    // per-frame update: progress, counter, arrow state, and edge scale/fade + logo parallax
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = rail.scrollWidth - rail.clientWidth;
+      const f = max > 0 ? rail.scrollLeft / max : 0;
+      const vis = Math.min(1, rail.clientWidth / rail.scrollWidth);
+      bar.style.width = (vis * 100) + '%';
+      bar.style.transform = `translateX(${f * (1 / vis - 1) * 100}%)`;
+      prev.disabled = rail.scrollLeft < 4;
+      next.disabled = rail.scrollLeft > max - 4;
+      if (reduce) return;
+      const r = rail.getBoundingClientRect(), right = r.right - parseFloat(getComputedStyle(rail).paddingRight);
+      cards.forEach(c => {
+        const b = c.getBoundingClientRect();
+        const outR = Math.min(1, Math.max(0, (b.right - right) / b.width));
+        const outL = Math.min(1, Math.max(0, (r.left - b.left) / b.width));
+        const t = Math.max(outR, outL);
+        c.style.transform = `scale(${1 - t * 0.08}) translateY(${t * 14}px)`;
+        c.style.opacity = 1 - t * 0.5;
+        const logo = c.querySelector('.plate img, .plate-txt');
+        if (logo) logo.style.translate = `${((b.left + b.width / 2) - (r.left + r.width / 2)) / r.width * -36}px 0`;
+      });
+    };
+    const req = () => { if (!raf) raf = requestAnimationFrame(update); };
+    rail.addEventListener('scroll', req, { passive: true });
+    addEventListener('resize', req);
+    update();
+  })();
+
   // Gentle scroll parallax on the hero
   if (!reduce) {
     const h1 = document.querySelector('.hero h1'), por0 = document.querySelector('.portrait');
@@ -567,7 +711,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
   })();
   document.addEventListener('mouseover', e => {
     cur.classList.remove('is-link', 'is-card');
-    if (e.target.closest('a')) cur.classList.add('is-link');
+    if (e.target.closest('a, button')) cur.classList.add('is-link');
     else if (e.target.closest('.card')) cur.classList.add('is-card');
   });
 })();
