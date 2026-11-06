@@ -15,7 +15,7 @@ PITCHES = [
     {"key": "NKE",   "symbol": "NKE",    "side": "short", "price": 38.33,  "date": "2026-10-22", "bench": "SPX"},
     {"key": "CPRT",  "symbol": "CPRT",   "side": "long",  "price": 27.59,  "date": "2026-09-25", "bench": "SPX"},
     {"key": "FTAI",  "symbol": "FTAI",   "side": "long",  "price": 169.97, "date": "2026-10-09", "bench": "SPX"},
-    {"key": "SUMCO", "symbol": "3436.T", "side": "long",  "price": 2053,   "date": None,         "bench": "TOPIX"},
+    {"key": "SUMCO", "symbol": "3436.T", "side": "long",  "price": 2053,   "date": "2026-04-27", "bench": "TOPIX"},
 ]
 BENCHMARKS = {
     "SPX":   {"symbol": "^GSPC",  "name": "S&P 500"},

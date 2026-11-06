@@ -9,15 +9,15 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 38.64
+        "price": 38.63
       },
-      "return": 0.0081,
-      "position": -0.0081,
+      "return": 0.0078,
+      "position": -0.0078,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0352
+        "return": -0.0343
       },
-      "relative": -0.0433
+      "relative": -0.042
     },
     "CPRT": {
       "side": "long",
@@ -27,15 +27,15 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 31.89
+        "price": 31.9
       },
-      "return": 0.1557,
-      "position": 0.1557,
+      "return": 0.156,
+      "position": 0.156,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0452
+        "return": -0.0442
       },
-      "relative": 0.2009
+      "relative": 0.2003
     },
     "FTAI": {
       "side": "long",
@@ -45,20 +45,20 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 176.92
+        "price": 179.4
       },
-      "return": 0.0409,
-      "position": 0.0409,
+      "return": 0.0555,
+      "position": 0.0555,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0535
+        "return": -0.0526
       },
-      "relative": 0.0944
+      "relative": 0.1081
     },
     "SUMCO": {
       "side": "long",
       "start": {
-        "date": null,
+        "date": "2026-04-27",
         "price": 2053
       },
       "last": {
@@ -66,7 +66,12 @@
         "price": 1911.5
       },
       "return": -0.0689,
-      "position": -0.0689
+      "position": -0.0689,
+      "benchmark": {
+        "name": "TOPIX",
+        "return": 0.0498
+      },
+      "relative": -0.1187
     }
   }
 }
