@@ -3,75 +3,109 @@
   "pitches": {
     "NKE": {
       "side": "short",
+      "ccy": "$",
       "start": {
         "date": "2026-10-22",
         "price": 38.33
       },
+      "target": 31.16,
+      "stop": 47.88,
+      "horizon_end": "2027-10-22",
       "last": {
         "date": "2026-11-06",
         "price": 38.59
       },
       "return": 0.0068,
       "position": -0.0068,
+      "progress": 0.0,
+      "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0344
+        "return": -0.0374
       },
-      "relative": -0.0412
+      "relative": -0.0442
     },
     "CPRT": {
       "side": "long",
+      "ccy": "$",
       "start": {
         "date": "2026-09-25",
         "price": 27.59
       },
+      "target": 37.3,
+      "stop": null,
+      "horizon_end": "2027-09-25",
       "last": {
         "date": "2026-11-06",
-        "price": 31.89
+        "price": 31.95
       },
-      "return": 0.1559,
-      "position": 0.1559,
+      "return": 0.158,
+      "position": 0.158,
+      "progress": 0.449,
+      "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0444
+        "return": -0.0473
       },
-      "relative": 0.2003
+      "relative": 0.2054
     },
     "FTAI": {
       "side": "long",
+      "ccy": "$",
       "start": {
         "date": "2026-10-09",
         "price": 169.97
       },
+      "target": 188.0,
+      "stop": null,
+      "horizon_end": "2027-10-09",
       "last": {
-        "date": "2026-11-06",
-        "price": 179.48
+        "date": "2026-10-29",
+        "price": 196.01
       },
-      "return": 0.056,
-      "position": 0.056,
+      "return": 0.1532,
+      "position": 0.1532,
+      "progress": 1.0,
+      "status": "closed",
+      "closed": {
+        "date": "2026-10-29",
+        "reason": "target",
+        "note": null
+      },
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0527
+        "return": -0.0117
       },
-      "relative": 0.1087
+      "relative": 0.1649
     },
     "SUMCO": {
       "side": "long",
+      "ccy": "¥",
       "start": {
         "date": "2026-04-10",
         "price": 2053
       },
+      "target": 3621,
+      "stop": null,
+      "horizon_end": "2027-04-10",
       "last": {
-        "date": "2026-11-05",
-        "price": 1911.5
+        "date": "2026-05-12",
+        "price": 3760.0
       },
-      "return": -0.0689,
-      "position": -0.0689,
+      "return": 0.8315,
+      "position": 0.8315,
+      "progress": 1.0,
+      "status": "closed",
+      "closed": {
+        "date": "2026-05-12",
+        "reason": "target",
+        "note": null
+      },
       "benchmark": {
         "name": "TOPIX",
-        "return": 0.0482
+        "return": 0.0348
       },
-      "relative": -0.1171
+      "relative": 0.7967
     }
   }
 }

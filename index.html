@@ -259,6 +259,15 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
 .since .up, .since .vals b.up { color: var(--long); }
 .since .down, .since .vals b.down { color: var(--short); }
 .card:has(.plate) .since + .links { padding-top: 14px; }
+.since .goal { position: relative; height: 3px; margin-top: 12px; border-radius: 3px; background: var(--rule); overflow: hidden; }
+.since .goal i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; background: var(--ink-3); transition: width 1.2s var(--ease); }
+.since .goal.done i { background: var(--accent); }
+.since .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 11px; color: var(--ink-3); }
+.since .note { margin: 8px 0 0; font: 400 12.5px/1.45 var(--sans); color: var(--ink-2); }
+.card .top .tags { display: inline-flex; gap: 6px; align-items: center; }
+.card .tag.state { color: var(--accent-ink); background: var(--accent); border-color: transparent; }
+.card .tag.state.stop, .card .tag.state.manual { color: #fff; background: #8A3A32; }
+.card .tag.state.horizon { color: var(--ink); background: rgba(12,13,15,.6); }
 
 /* ---------- pitch carousel ---------- */
 .rail-ctrl { display: flex; align-items: center; gap: 10px; }
@@ -619,23 +628,44 @@ footer .btn { background: transparent; border-color: var(--rule); }
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
   }));
 
-  // Since-pitch tracker: data/pitches.json is refreshed daily by a GitHub Action
+  // Since-pitch tracker: data/pitches.json is refreshed daily by a GitHub Action.
+  // Open pitches show progress to target and the horizon; closed ones show their frozen result.
   fetch('data/pitches.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(data => {
     if (!data) return;
-    const pct = x => (x > 0 ? '+' : x < 0 ? '\u2212' : '') + Math.abs(x * 100).toFixed(1) + '%';
-    const pts = x => (x > 0 ? '+' : x < 0 ? '\u2212' : '') + Math.abs(x * 100).toFixed(1) + ' pts';
-    const asOf = new Date(data.updated + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const sign = x => x > 0 ? '+' : x < 0 ? '−' : '';
+    const pct = x => sign(x) + Math.abs(x * 100).toFixed(1) + '%';
+    const pts = x => sign(x) + Math.abs(x * 100).toFixed(1) + ' pts';
+    const day = (iso, opt) => new Date(iso + 'T12:00:00').toLocaleDateString('en-US', opt);
+    const md = iso => day(iso, { month: 'short', day: 'numeric' });
+    const my = iso => day(iso, { month: 'short', year: 'numeric' });
+    const money = (c, v) => c + (c === '¥' ? Math.round(v).toLocaleString('en-US') : v.toFixed(2));
+    const cls = x => x > 0 ? 'up' : x < 0 ? 'down' : '';
+    const why = { target: 'Target hit', stop: 'Stopped out', horizon: '12M horizon ended', manual: 'Thesis exit' };
     document.querySelectorAll('.since[data-pitch]').forEach(el => {
       const p = data.pitches[el.dataset.pitch]; if (!p) return;
-      const cls = x => x > 0 ? 'up' : x < 0 ? 'down' : '';
-      let call = '';
-      if (typeof p.relative === 'number') {
-        call = `<span class="call ${cls(p.relative)}" title="Position vs ${p.benchmark.name}">${p.relative >= 0 ? 'Ahead' : 'Behind'} ${pts(p.relative)}</span>`;
-      }
-      const bench = p.benchmark ? `<span>${p.benchmark.name} ${pct(p.benchmark.return)}</span>` : '';
-      el.innerHTML = `<div class="row"><span class="k">Since pitch \u00b7 ${asOf}</span>${call}</div>` +
-        `<div class="vals"><span>Stock <b class="${cls(p.position)}">${pct(p.return)}</b></span>${bench}</div>`;
+      const closed = p.status === 'closed';
+      const call = `<span class="call ${cls(p.relative)}" title="Position vs ${p.benchmark.name}">${p.relative >= 0 ? 'Ahead' : 'Behind'} ${pts(p.relative)}</span>`;
+      const head = closed ? `Closed · ${md(p.closed.date)}` : `Since pitch · ${md(data.updated)}`;
+      const meta = closed
+        ? `<span>${why[p.closed.reason]} at ${money(p.ccy, p.last.price)}</span>`
+        : `<span>Target ${money(p.ccy, p.target)}</span><span>12M, ends ${my(p.horizon_end)}</span>` +
+          (p.stop ? `<span>Stop ${money(p.ccy, p.stop)}</span>` : '');
+      el.innerHTML =
+        `<div class="row"><span class="k">${head}</span>${call}</div>` +
+        `<div class="vals"><span>${closed ? 'Final' : 'Stock'} <b class="${cls(p.position)}">${pct(p.return)}</b></span><span>${p.benchmark.name} ${pct(p.benchmark.return)}</span></div>` +
+        `<div class="goal${closed ? ' done' : ''}" title="${Math.round(p.progress * 100)}% of the way to target"><i style="width:${(p.progress * 100).toFixed(1)}%"></i></div>` +
+        `<div class="meta">${meta}</div>` +
+        (closed && p.closed.note ? `<p class="note">${p.closed.note}</p>` : '');
       el.hidden = false;
+      if (closed) {
+        const card = el.closest('.card'), tag = card.querySelector('.top .tag');
+        card.classList.add('is-closed');
+        if (tag && !card.querySelector('.tag.state')) {
+          const wrap = document.createElement('span'); wrap.className = 'tags';
+          tag.replaceWith(wrap); wrap.append(tag);
+          wrap.insertAdjacentHTML('beforeend', `<span class="tag state ${p.closed.reason}">${why[p.closed.reason]}</span>`);
+        }
+      }
     });
   }).catch(() => {});
 
