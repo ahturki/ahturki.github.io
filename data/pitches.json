@@ -9,15 +9,15 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 38.63
+        "price": 38.59
       },
-      "return": 0.0078,
-      "position": -0.0078,
+      "return": 0.0068,
+      "position": -0.0068,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0343
+        "return": -0.0344
       },
-      "relative": -0.042
+      "relative": -0.0412
     },
     "CPRT": {
       "side": "long",
@@ -27,13 +27,13 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 31.9
+        "price": 31.89
       },
-      "return": 0.156,
-      "position": 0.156,
+      "return": 0.1559,
+      "position": 0.1559,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0442
+        "return": -0.0444
       },
       "relative": 0.2003
     },
@@ -45,20 +45,20 @@
       },
       "last": {
         "date": "2026-11-06",
-        "price": 179.4
+        "price": 179.48
       },
-      "return": 0.0555,
-      "position": 0.0555,
+      "return": 0.056,
+      "position": 0.056,
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0526
+        "return": -0.0527
       },
-      "relative": 0.1081
+      "relative": 0.1087
     },
     "SUMCO": {
       "side": "long",
       "start": {
-        "date": "2026-04-27",
+        "date": "2026-04-10",
         "price": 2053
       },
       "last": {
@@ -69,9 +69,9 @@
       "position": -0.0689,
       "benchmark": {
         "name": "TOPIX",
-        "return": 0.0498
+        "return": 0.0482
       },
-      "relative": -0.1187
+      "relative": -0.1171
     }
   }
 }
