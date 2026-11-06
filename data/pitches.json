@@ -1,0 +1,72 @@
+{
+  "updated": "2026-11-06",
+  "pitches": {
+    "NKE": {
+      "side": "short",
+      "start": {
+        "date": "2026-10-22",
+        "price": 38.33
+      },
+      "last": {
+        "date": "2026-11-06",
+        "price": 38.62
+      },
+      "return": 0.0076,
+      "position": -0.0076,
+      "benchmark": {
+        "name": "S&P 500",
+        "return": -0.0351
+      },
+      "relative": -0.0427
+    },
+    "CPRT": {
+      "side": "long",
+      "start": {
+        "date": "2026-09-25",
+        "price": 27.59
+      },
+      "last": {
+        "date": "2026-11-06",
+        "price": 31.85
+      },
+      "return": 0.1544,
+      "position": 0.1544,
+      "benchmark": {
+        "name": "S&P 500",
+        "return": -0.0451
+      },
+      "relative": 0.1995
+    },
+    "FTAI": {
+      "side": "long",
+      "start": {
+        "date": "2026-10-09",
+        "price": 169.97
+      },
+      "last": {
+        "date": "2026-11-06",
+        "price": 176.86
+      },
+      "return": 0.0405,
+      "position": 0.0405,
+      "benchmark": {
+        "name": "S&P 500",
+        "return": -0.0534
+      },
+      "relative": 0.0939
+    },
+    "SUMCO": {
+      "side": "long",
+      "start": {
+        "date": null,
+        "price": 2053
+      },
+      "last": {
+        "date": "2026-11-05",
+        "price": 1911.5
+      },
+      "return": -0.0689,
+      "position": -0.0689
+    }
+  }
+}

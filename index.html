@@ -248,6 +248,18 @@ section { padding: clamp(80px, 12vw, 160px) var(--pad) 0; }
 .btn.solid:hover { color: var(--accent-ink); border-color: var(--accent); }
 
 
+
+/* ---------- since-pitch tracker ---------- */
+.since { margin-top: 16px; padding: 12px 0 0; border-top: 1px solid var(--rule); font: 400 12px/1.4 var(--mono); color: var(--ink-3); }
+.since .row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.since .k { text-transform: uppercase; letter-spacing: .08em; font-size: 10.5px; }
+.since .vals { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; color: var(--ink-2); }
+.since .vals b { font-weight: 500; color: var(--ink); font-size: 15px; }
+.since .call { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px 3px; border-radius: 999px; border: 1px solid currentColor; }
+.since .up, .since .vals b.up { color: var(--long); }
+.since .down, .since .vals b.down { color: var(--short); }
+.card:has(.plate) .since + .links { padding-top: 14px; }
+
 /* ---------- pitch carousel ---------- */
 .rail-ctrl { display: flex; align-items: center; gap: 10px; }
 .rail-ctrl .count { margin-right: 8px; white-space: nowrap; }
@@ -462,6 +474,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
           <p class="tk">NYSE: NKE</p>
           <h3>Nike, Inc.</h3>
           <p class="sub">Team pitch. I analyzed about 1.4B alternative data points, wrote two of the theses and co-built the model.</p>
+          <div class="since" data-pitch="NKE" hidden></div>
           <ul class="links">
             <li><a class="btn solid" href="assets/NKE_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
@@ -475,6 +488,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
           <p class="tk">NASDAQ: CPRT</p>
           <h3>Copart, Inc.</h3>
           <p class="sub">Team pitch. I co-built the valuation model and wrote the first thesis.</p>
+          <div class="since" data-pitch="CPRT" hidden></div>
           <ul class="links">
             <li><a class="btn solid" href="assets/CPRT_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
@@ -488,6 +502,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
           <p class="tk">NASDAQ: FTAI</p>
           <h3>FTAI Aviation Ltd.</h3>
           <p class="sub">Team pitch. I built the model and led the industry and business research.</p>
+          <div class="since" data-pitch="FTAI" hidden></div>
           <ul class="links">
             <li><a class="btn solid" href="assets/FTAI_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
@@ -501,6 +516,7 @@ footer .btn { background: transparent; border-color: var(--rule); }
           <p class="tk">TSE: 3436</p>
           <h3>SUMCO Corporation</h3>
           <p class="sub">Solo pitch.</p>
+          <div class="since" data-pitch="SUMCO" hidden></div>
           <ul class="links">
             <li><a class="btn solid" href="assets/SUMCO_Memo.pdf" target="_blank" rel="noopener">Memo <span class="ft">PDF</span><svg aria-hidden="true"><use href="#i-ext"/></svg></a></li>
           </ul>
@@ -602,6 +618,26 @@ footer .btn { background: transparent; border-color: var(--rule); }
     catch { location.href = 'mailto:' + btn.dataset.copy; return; }
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
   }));
+
+  // Since-pitch tracker: data/pitches.json is refreshed daily by a GitHub Action
+  fetch('data/pitches.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(data => {
+    if (!data) return;
+    const pct = x => (x > 0 ? '+' : x < 0 ? '\u2212' : '') + Math.abs(x * 100).toFixed(1) + '%';
+    const pts = x => (x > 0 ? '+' : x < 0 ? '\u2212' : '') + Math.abs(x * 100).toFixed(1) + ' pts';
+    const asOf = new Date(data.updated + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    document.querySelectorAll('.since[data-pitch]').forEach(el => {
+      const p = data.pitches[el.dataset.pitch]; if (!p) return;
+      const cls = x => x > 0 ? 'up' : x < 0 ? 'down' : '';
+      let call = '';
+      if (typeof p.relative === 'number') {
+        call = `<span class="call ${cls(p.relative)}" title="Position vs ${p.benchmark.name}">${p.relative >= 0 ? 'Ahead' : 'Behind'} ${pts(p.relative)}</span>`;
+      }
+      const bench = p.benchmark ? `<span>${p.benchmark.name} ${pct(p.benchmark.return)}</span>` : '';
+      el.innerHTML = `<div class="row"><span class="k">Since pitch \u00b7 ${asOf}</span>${call}</div>` +
+        `<div class="vals"><span>Stock <b class="${cls(p.position)}">${pct(p.return)}</b></span>${bench}</div>`;
+      el.hidden = false;
+    });
+  }).catch(() => {});
 
   // Pitch carousel: arrows, drag, keyboard, progress, edge animation
   (() => {
