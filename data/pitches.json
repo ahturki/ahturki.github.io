@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "pitches": {
     "NKE": {
       "side": "short",
@@ -12,18 +12,18 @@
       "stop": 47.88,
       "horizon_end": "2027-10-22",
       "last": {
-        "date": "2026-11-10",
-        "price": 38.67
+        "date": "2026-11-11",
+        "price": 38.32
       },
-      "return": 0.0089,
-      "position": -0.0089,
-      "progress": 0.0,
+      "return": -0.0003,
+      "position": 0.0003,
+      "progress": 0.0014,
       "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0186
+        "return": -0.0057
       },
-      "relative": -0.0275
+      "relative": -0.0055
     },
     "CPRT": {
       "side": "long",
@@ -36,18 +36,18 @@
       "stop": null,
       "horizon_end": "2027-09-25",
       "last": {
-        "date": "2026-11-10",
-        "price": 32.3
+        "date": "2026-11-11",
+        "price": 32.17
       },
-      "return": 0.1707,
-      "position": 0.1707,
-      "progress": 0.4851,
+      "return": 0.166,
+      "position": 0.166,
+      "progress": 0.4717,
       "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0287
+        "return": -0.016
       },
-      "relative": 0.1994
+      "relative": 0.182
     },
     "FTAI": {
       "side": "long",
