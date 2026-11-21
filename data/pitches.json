@@ -12,18 +12,18 @@
       "stop": 47.88,
       "horizon_end": "2027-10-22",
       "last": {
-        "date": "2026-11-19",
-        "price": 34.33
+        "date": "2026-11-20",
+        "price": 32.92
       },
-      "return": -0.1044,
-      "position": 0.1044,
-      "progress": 0.5579,
+      "return": -0.1411,
+      "position": 0.1411,
+      "progress": 0.7545,
       "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0636
+        "return": -0.0983
       },
-      "relative": 0.0407
+      "relative": 0.0429
     },
     "CPRT": {
       "side": "long",
@@ -36,18 +36,18 @@
       "stop": null,
       "horizon_end": "2027-09-25",
       "last": {
-        "date": "2026-11-19",
-        "price": 30.86
+        "date": "2026-11-20",
+        "price": 31.09
       },
-      "return": 0.1185,
-      "position": 0.1185,
-      "progress": 0.3368,
+      "return": 0.1269,
+      "position": 0.1269,
+      "progress": 0.3605,
       "status": "open",
       "benchmark": {
         "name": "S&P 500",
-        "return": -0.0733
+        "return": -0.1076
       },
-      "relative": 0.1918
+      "relative": 0.2344
     },
     "FTAI": {
       "side": "long",
